@@ -1,0 +1,198 @@
+
+version: 2
+
+sources:
+  - name: public
+    tables:
+      - name: crime_scene_report
+        description: >
+          police department’s database
+        columns:
+          - name: date
+          - name: type
+          - name: description
+          - name: city
+
+      - name: drivers_license
+        description: >
+          person drivers_license
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+          - name: age
+          - name: height
+          - name: eye_color
+          - name: hair_color
+          - name: gender
+          - name: plate_number
+          - name: car_make
+          - name: car_model
+
+
+      - name: facebook_event_checkin
+        description: >
+          digital profile/ online activity
+        columns:
+          - name:  person_id
+            tests:
+              - not_null
+          - name: event_id
+          - name: event_name
+          - name: date
+
+      - name: get_fit_now_check_in
+        description: >
+          business entity get_fit db
+        columns:
+          - name:  membership_id
+            tests:
+              - unique
+              - not_null
+          - name: check_in_date
+          - name: check_in_time
+          - name: check_out_time
+
+      - name: get_fit_now_member
+        description: >
+          business entity get_fit db
+        columns:
+          - name:  id
+            tests:
+              - unique
+              - not_null
+          - name: person_id
+          - name: name
+          - name: membership_start_date
+          - name: membership_status
+
+      - name: income
+        description: >
+          paye db
+        columns:
+          - name: ssn
+            tests:
+              - unique
+              - not_null
+          - name: annual_income
+
+      - name: interview
+        description: >
+          police db
+        columns:
+          - name: person_id
+            tests:
+              - unique
+              - not_null
+          - name: transcript
+
+      - name: person
+        description: >
+          police db
+        columns:
+          - name:  id
+            tests:
+              - unique
+              - not_null
+          - name: name
+          - name: license_id
+          - name: address_number
+          - name: address_street_name
+          - name: ssn
+
+      - name: solution
+      
+models:
+  - name: crime_scene_report
+    description: >
+      police department's database
+    columns:
+      - name: date
+      - name: type
+      - name: description
+      - name: city
+
+  - name: drivers_license
+    description: >
+      person drivers_license
+    columns:
+      - name: license_id
+      - name: age
+      - name: height
+      - name: eye_color
+      - name: hair_color
+      - name: gender
+      - name: plate_number
+      - name: car_make
+      - name: car_model
+
+
+  - name: facebook_event_checkin
+    description: >
+      digital profile/ online activity
+    columns:
+      - name: person_id
+      - name: event_id
+      - name: event_name
+      - name: event_date
+
+  - name: get_fit_now_check_in
+    description: >
+      business entity get_fit db
+    tests:
+      - dbt_utils.expression_is_true:
+            expression: "check_out_timestamp >= check_in_timestamp"
+            config:
+                severity: error
+                error_if: ">1000"
+                warn_if: ">10"
+
+    columns:
+      - name: membership_id
+      - name: check_in_date
+      - name: check_in
+      - name: check_out
+      - name: check_in_minutes
+      - name: check_out_minutes
+      - name: check_in_minutes_1
+      - name: check_out_minutes_1
+      - name: check_in_timestamp
+      - name: check_out_timestamp
+
+
+  - name: get_fit_now_member
+    description: >
+      business entity get_fit db
+    columns:
+      - name:  membership_id
+      - name: person_id
+      - name: name
+      - name: membership_start_date
+      - name: membership_status
+
+  - name: income
+    description: >
+      paye db
+    columns:
+      - name: ssn
+      - name: annual_income
+
+  - name: interview
+    description: >
+      police db
+    columns:
+      - name: person_id
+      - name: transcript
+
+  - name: person
+    description: >
+      police db
+    columns:
+      - name: person_id
+      - name: person_name
+      - name: license_id
+      - name: address_number
+      - name: address_street_name
+      - name: ssn
+

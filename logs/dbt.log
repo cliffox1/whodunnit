@@ -1,0 +1,26 @@
+
+
+============================== 2023-02-16 15:05:49.741378 | 62a95aff-0193-466c-ba01-2d2ed10ad6a4 ==============================
+[0m15:05:49.741378 [info ] [MainThread]: Running with dbt=1.4.1
+[0m15:05:49.749002 [debug] [MainThread]: running dbt with arguments {'write_json': True, 'use_colors': True, 'printer_width': 80, 'version_check': True, 'partial_parse': True, 'static_parser': True, 'profiles_dir': '/Users/odutola/.dbt', 'send_anonymous_usage_stats': True, 'quiet': False, 'no_print': False, 'cache_selected_only': False, 'project_name': 'jaffle_shop', 'skip_profile_setup': False, 'which': 'init', 'indirect_selection': 'eager'}
+[0m15:05:49.749307 [debug] [MainThread]: Tracking: tracking
+[0m15:05:49.790726 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10fa0b100>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10f9dcf70>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10f9dcf40>]}
+[0m15:05:49.794830 [debug] [MainThread]: Starter project path: /usr/local/Cellar/dbt-postgres/1.4.1/libexec/lib/python3.9/site-packages/dbt/include/starter_project
+[0m15:05:56.971510 [info ] [MainThread]: 
+Your new dbt project "jaffle_shop" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m15:05:56.972184 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10fa0b0a0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10fc03f70>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10f96c4c0>]}
+[0m15:05:56.972627 [debug] [MainThread]: Flushing usage events
