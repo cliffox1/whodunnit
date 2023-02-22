@@ -16,17 +16,19 @@ on:
     types:
       - opened
 jobs:
-  run-lint:
+  lint_project:
+    name: Run SQLFluff linter
     runs-on: ubuntu-latest
+  
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: "actions/checkout@v3"
+      - uses: "actions/setup-python@v2"
         with:
-          # Full git history is needed to get a proper list of changed files within `super-linter`
-          fetch-depth: 0
-
-      - name: Lint Code Base
-        uses: github/super-linter@v4
+          python-version: "3.9"
+      - name: Install SQLFluff
+        run: "pip install sqlfluff==1.4.5"
+      - name: Lint project
+        run: "sqlfluff lint models --dialect postgres"
         env:
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: "main"
