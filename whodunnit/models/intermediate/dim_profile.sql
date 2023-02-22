@@ -38,7 +38,7 @@ profile_sub as (
         driver.gender,
         driver.plate_number,
         driver.car_make,
-        driver.car_model
+        driver.car_model,
         income.annual_income
     from person
     left join driver on person.license_id = driver.license_id
