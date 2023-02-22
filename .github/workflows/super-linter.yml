@@ -20,13 +20,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3, actions/setup-python@v2
         with:
           # Full git history is needed to get a proper list of changed files within `super-linter`
           fetch-depth: 0
-
+          python-version: "3.9"
+      - name: Install SQLFluff
+        run: "pip install sqlfluff==0.13.1"
       - name: Lint Code Base
-        uses: github/super-linter@v4
+        run: "sqlfluff lint models --dialect postgres"
         env:
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: "main"
