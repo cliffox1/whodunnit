@@ -10,6 +10,17 @@ whodunnit:
       dbname: "postgres"
       schema : "whodunnit"
       threads: 4
+
+    sqlfluff:
+      type: postgres
+      host: "host.docker.internal"       # <-- Set these environment variables in GitHub Secrets
+      user: "postgres"
+      password: "postgres"
+      port: 5432
+      dbname: "postgres"
+      schema: "whodunnit"
+      threads: 1
+      
     local:
       type: postgres
       host: "localhost"
