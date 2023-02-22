@@ -30,4 +30,4 @@ jobs:
       - name: Install SQLFluff
         run: "pip install sqlfluff==1.4.5"
       - name: Lint Code Base
-        run: "sqlfluff lint models --dialect postgres"
+        run: "sqlfluff lint /Users/odutola/Documents/whodunnit/whodunnit/models --dialect postgres"
