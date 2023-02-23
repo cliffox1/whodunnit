@@ -7,7 +7,9 @@ repos:
       # You will need to select the relevant dbt adapter for your dialect
       # (https://docs.getdbt.com/docs/available-adapters):
       additional_dependencies: ['dbt-postgres', 'sqlfluff-templater-dbt']
+      files: /Users/odutola/Documents/whodunnit/whodunnit/models
     - id: sqlfluff-fix
       # Arbitrary arguments to show an example
       # args: [--rules, "L003,L014"]
       additional_dependencies: ['dbt-postgres', 'sqlfluff-templater-dbt']
+      files: /Users/odutola/Documents/whodunnit/whodunnit/models

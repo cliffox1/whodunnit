@@ -24,8 +24,8 @@ select
     public_profile.annual_income,
     public_profile.digitalpresence_event,
     public_profile.testimony_transcript,
-    get_fit.membership_id,
-    get_fit.membership_start_date,
+    get_fit.membership_id
+    ,get_fit.membership_start_date,
     get_fit.membership_status,
     get_fit.check_in_out_period
 from public_profile
