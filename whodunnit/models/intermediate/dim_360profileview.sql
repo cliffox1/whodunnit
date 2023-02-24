@@ -19,10 +19,10 @@ select
     public_profile.hair_color,
     public_profile.gender,
     public_profile.plate_number,
-    public_profile.car_make,
-    public_profile.car_model,
-    public_profile.annual_income,
-    public_profile.digitalpresence_event
+    , public_profile.car_make,
+    , public_profile.car_model,
+    , public_profile.annual_income,
+    , public_profile.digitalpresence_event
     , public_profile.testimony_transcript
     , get_fit.membership_id
     , get_fit.membership_start_date
