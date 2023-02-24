@@ -4,3 +4,4 @@ dialect = postgres
 [sqlfluff:templater:dbt]
 project_dir = .
 profile = whodunnit
+
