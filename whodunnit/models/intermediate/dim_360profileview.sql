@@ -23,10 +23,10 @@ select
     public_profile.car_model,
     public_profile.annual_income,
     public_profile.digitalpresence_event,
-    public_profile.testimony_transcript,
-    get_fit.membership_id,
-    get_fit.membership_start_date,
-    get_fit.membership_status,
-    get_fit.check_in_out_period
+    public_profile.testimony_transcript
+    , get_fit.membership_id
+    , get_fit.membership_start_date
+    , get_fit.membership_status
+    , get_fit.check_in_out_period
 from public_profile
 left join get_fit on public_profile.person_id = get_fit.person_id
