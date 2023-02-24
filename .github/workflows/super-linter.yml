@@ -45,11 +45,7 @@ jobs:
           # Issue where grep regular expressions don't work as expected on the
           # Github Actions shell, check dbt/models/ folder
           echo \
-          $(echo ${{ steps.get_file_changes.outputs.files_modified }} |
-          tr -s ' ' '\n' |
-          grep -E '^dbt/models.*[.]sql$' |
-          tr -s '\n' ' ') \
-          $(echo ${{ steps.get_file_changes.outputs.files_added }} |
+          $(echo ${{ steps.changed-files.outputs.all_changed_files}} |
           tr -s ' ' '\n' |
           grep -E '^dbt/models.*[.]sql$' |
           tr -s '\n' ' ')
