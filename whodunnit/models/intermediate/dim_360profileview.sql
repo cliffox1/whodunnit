@@ -22,8 +22,8 @@ select
     public_profile.car_make,
     public_profile.car_model,
     public_profile.annual_income,
-    public_profile.digitalpresence_event,
-    public_profile.testimony_transcript
+    public_profile.digitalpresence_event
+    , public_profile.testimony_transcript
     , get_fit.membership_id
     , get_fit.membership_start_date
     , get_fit.membership_status
