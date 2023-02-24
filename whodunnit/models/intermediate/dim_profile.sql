@@ -25,21 +25,21 @@ interview as (
 
 profile_sub as (
     select
-    person.person_id
-    , person.person_name
-    , person.license_id
-    , person.address_number
-    , person.address_street_name
-    , person.ssn
-    , driver.age
-    , driver.height
-    , driver.eye_color
-    , driver.hair_color
-    , driver.gender
-    , driver.plate_number
-    , driver.car_make
-    , driver.car_model
-    , income.annual_income
+        person.person_id,
+        person.person_name,
+        person.license_id,
+        person.address_number,
+        person.address_street_name,
+        person.ssn,
+        driver.age,
+        driver.height,
+        driver.eye_color,
+        driver.hair_color,
+        driver.gender,
+        driver.plate_number,
+        driver.car_make,
+        driver.car_model,
+        income.annual_income
     from person
     left join driver on person.license_id = driver.license_id
     left join income on person.ssn = income.ssn

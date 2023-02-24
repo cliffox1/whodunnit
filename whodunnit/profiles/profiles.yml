@@ -10,6 +10,31 @@ whodunnit:
       dbname: "postgres"
       schema : "whodunnit"
       threads: 4
+
+    sqlfluff:
+      type: postgres
+      host: "localhost"
+      user: "postgres"
+      password: "postgres"
+      port: 5432
+      dbname: "postgres"
+      schema: "whodunnit"
+      threads: 1
+    
+    elementary:
+      outputs:
+      default:
+       type: postgres
+       host: localhost
+       port: 5432
+       user: postgres
+       password: postgres
+       dbname: postgres
+       schema: whodunnit_elementary
+       threads: 4
+       keepalives_idle: 0
+       connect_timeout: 10
+      
     local:
       type: postgres
       host: "localhost"
