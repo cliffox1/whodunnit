@@ -18,7 +18,7 @@ select
     public_profile.eye_color,
     public_profile.hair_color,
     public_profile.gender,
-    public_profile.plate_number,
+    , public_profile.plate_number,
     , public_profile.car_make,
     , public_profile.car_model,
     , public_profile.annual_income,
