@@ -48,7 +48,7 @@ jobs:
           echo \
           $(echo ${{ steps.changed-files.outputs.all_changed_and_modified_files}} |
           tr -s ' ' '\n' |
-          grep -E '^dbt/models.*$' |
+          grep -E '^dbt/models.*[.]sql$' |
           tr -s '\n' ' ')
           )" >> $GITHUB_OUTPUT
         
