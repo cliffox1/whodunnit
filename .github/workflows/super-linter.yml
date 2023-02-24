@@ -32,28 +32,25 @@ jobs:
         
       - name: Get changed files
         id: get_file_changes
-        uses: trilom/file-changes-action@v1.2.4
+        uses: tj-actions/changed-files@v3
         with:
-          output: ' '
+          files: |
+            *.sql
 
       - name: Get changed .sql files in /models to lint
         id: get_files_to_lint
         shell: bash -l {0}
         run: |
           # Set the command in the $() brackets as an output to use in later steps
-          echo "::set-output name=lintees::$(
+          echo "lintees=$(
           # Issue where grep regular expressions don't work as expected on the
           # Github Actions shell, check dbt/models/ folder
           echo \
-          $(echo ${{ steps.get_file_changes.outputs.files_modified }} |
+          $(echo ${{ steps.changed-files.outputs.all_changed_and_modified_files}} |
           tr -s ' ' '\n' |
-          grep -E '^dbt/models.*[.]sql$' |
-          tr -s '\n' ' ') \
-          $(echo ${{ steps.get_file_changes.outputs.files_added }} |
-          tr -s ' ' '\n' |
-          grep -E '^dbt/models.*[.]sql$' |
+          grep -E '^dbt/models.*$' |
           tr -s '\n' ' ')
-          )"
+          )" >> $GITHUB_OUTPUT
         
       - name: Lint Code Base
         id: sqlfluff_json
