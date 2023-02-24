@@ -46,7 +46,7 @@ jobs:
           echo \
           $(echo ${{ steps.changed-files.outputs.all_changed_and_modified_files}} |
           tr -s ' ' '\n' |
-          grep -E '^.*[.]sql$' |
+          grep -E '^.+\/models\/.+\/.+\.sql$' |
           tr -s '\n' ' ')
           )
           echo "mylintees =$mylintees"
@@ -58,7 +58,7 @@ jobs:
           echo \
           $(echo ${{ steps.changed-files.outputs.all_changed_and_modified_files}} |
           tr -s ' ' '\n' |
-          grep -E '^.*[.]sql$' |
+          grep -E '^.+\/models\/.+\/.+\.sql$' |
           tr -s '\n' ' ')
           )" >> $GITHUB_OUTPUT
         
