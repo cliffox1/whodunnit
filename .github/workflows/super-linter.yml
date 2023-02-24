@@ -33,9 +33,7 @@ jobs:
       - name: Get changed files
         id: get_file_changes
         uses: tj-actions/changed-files@v3
-        with:
-          files: |
-            *.sql
+
 
       - name: Get changed .sql files in /models to lint
         id: get_files_to_lint
