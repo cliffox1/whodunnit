@@ -43,7 +43,7 @@ jobs:
         run: |
           mylintees=$(
           
-          for file in ${{ steps.changed-files-specific.outputs.only_changed }}
+          $(echo ${{ steps.changed-files-specific.outputs.only_changed }}
           
           )
             echo "mylintees =$mylintees"
