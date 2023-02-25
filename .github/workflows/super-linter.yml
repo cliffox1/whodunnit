@@ -40,11 +40,17 @@ jobs:
         id: get_files_to_lint
         if: steps.changed-files-specific.outputs.only_changed == 'true'
         shell: bash -l {0}
-        run:
+        run: |
+          mylintees=$(
+          
+          for file in ${{ steps.changed-files-specific.outputs.only_changed }}
+          
+          )
+            echo "mylintees =$mylintees"
+
 #         if: steps.get_files_to_lint.outputs.lintees != ''
-           mylintee =  $(echo ${{ steps.changed-files-specific.outputs.only_changed }}
-             )
-             echo "mylintee =$mylintee"
+
+
        
 #       - name: Lint Code Base
 #         id: sqlfluff_json
