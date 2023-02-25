@@ -37,19 +37,28 @@ jobs:
             **/*.sql
             
       - name: Run step if only the files listed above change
-        id: sqlfluff_json
+        id: get_files_to_lint
         if: steps.changed-files-specific.outputs.only_changed == 'true'
-#         if: steps.get_files_to_lint.outputs.lintees != ''
         shell: bash -l {0}
-        run: |
-          sqlfluff lint --format github-annotation --annotation-level failure ${{ steps.changed-files-specific.outputs.only_changed }}
+        run:
+#         if: steps.get_files_to_lint.outputs.lintees != ''
+           mylintee =  $(echo ${{ steps.changed-files-specific.outputs.only_changed }}
+             )
+             echo "mylintee =$mylintee"
+       
+#       - name: Lint Code Base
+#         id: sqlfluff_json
+#         shell: bash -l {0}
+#         run: |
+#           sqlfluff lint --format github-annotation --annotation-level failure ${{ steps.changed-files-specific.outputs.only_changed }}> annotations.json
           
-      - name: Annotate
-        uses: yuzutech/annotations-action@v0.4.0
-        with:
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          title: 'lint'
-          input: './annotations.json'
+#       - name: Annotate
+#         uses: yuzutech/annotations-action@v0.4.0
+#         with:
+#           repo-token: "${{ secrets.GITHUB_TOKEN }}"
+#           title: 'lint'
+#           input: './annotations.json'
+      
       
       
 #       - name: Lint Code Base
