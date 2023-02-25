@@ -36,7 +36,7 @@ jobs:
             
       - name: List all changed files
         run: |
-          mylintees=$(for file in ${{steps.changed-files-specific.outputs.all_changed_and_modified_files}})
+          mylintees=for file in ${{steps.changed-files-specific.outputs.all_changed_and_modified_files}};
           do
             echo "mylintees =$mylintees"
           done
