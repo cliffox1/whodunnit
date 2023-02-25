@@ -38,21 +38,28 @@ jobs:
             
       - name: Run step if only the files listed above change
         if: steps.changed-files-specific.outputs.only_changed == 'true'
-        run: |
-          echo "Only files listed above have changed."
-      
-      
-      - name: Lint Code Base
-        id: sqlfluff_json
-        if: steps.changed-files-specific.outputs.only_changed == 'true'
         shell: bash -l {0}
         run: sqlfluff lint --format github-annotation --annotation-level failure --nofail ${{ steps.changed-files-specific.outputs.only_changed}} > annotations.json
+        
       - name: Annotate
         uses: yuzutech/annotations-action@v0.3.0
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           title: "SQLFluff Lint"
           input: "./annotations.json"
+      
+      
+#       - name: Lint Code Base
+#         id: sqlfluff_json
+#         if: steps.changed-files-specific.outputs.only_changed == 'true'
+#         shell: bash -l {0}
+#         run: sqlfluff lint --format github-annotation --annotation-level failure --nofail ${{ steps.changed-files-specific.outputs.only_changed}} > annotations.json
+#       - name: Annotate
+#         uses: yuzutech/annotations-action@v0.3.0
+#         with:
+#           repo-token: "${{ secrets.GITHUB_TOKEN }}"
+#           title: "SQLFluff Lint"
+#           input: "./annotations.json"
 
 
 
