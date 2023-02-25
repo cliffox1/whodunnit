@@ -28,8 +28,8 @@ jobs:
       - name: Install SQLFluff
         run: "pip install sqlfluff"
         
-      - name: Get changed files 
-        id: get_file_changes 
+      - name: Get specific changed files
+        id: changed-files-specific
         uses: tj-actions/changed-files@v35 
         with:  
           since_last_remote_commit: true   
@@ -38,7 +38,7 @@ jobs:
             
       - name: List all changed files
         run: |
-          for file in ${{steps.get_file_changes.outputs.all_changed_and_modified_files}}; do
+          for file in ${{steps.changed-files-specific.outputs.all_changed_and_modified_files}}; do
             echo "$file was changed"
           done
 
