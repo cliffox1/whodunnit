@@ -28,3 +28,6 @@
 2023-02-24 13:12:17 — INFO — Running with edr=0.7.3
 2023-02-24 13:12:17 — DEBUG — Running dbt --log-format json run-operation get_adapter_type_and_unique_id --project-dir /usr/local/lib/python3.11/site-packages/elementary/monitor/dbt_project
 2023-02-24 13:12:20 — DEBUG — Running dbt debug --project-dir /usr/local/lib/python3.11/site-packages/elementary/monitor/dbt_project
+2023-02-24 17:18:55 — INFO — Running with edr=0.7.3
+2023-02-24 17:18:55 — DEBUG — Running dbt --log-format json run-operation get_adapter_type_and_unique_id --project-dir /usr/local/lib/python3.11/site-packages/elementary/monitor/dbt_project
+2023-02-24 17:18:58 — DEBUG — Running dbt debug --project-dir /usr/local/lib/python3.11/site-packages/elementary/monitor/dbt_project

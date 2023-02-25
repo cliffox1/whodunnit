@@ -15,7 +15,7 @@ select
     public_profile.ssn,
     public_profile.age,
     public_profile.height,
-    public_profile.eye_color,
+    , public_profile.eye_color,
     , public_profile.hair_color,
     , public_profile.gender,
     , public_profile.plate_number,
