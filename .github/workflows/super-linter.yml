@@ -42,7 +42,7 @@ jobs:
         shell: bash -l {0}
         run: |
           mylintees=$(
-          
+          echo \
           $(echo ${{ steps.changed-files-specific.outputs.only_changed }}
           
           )
