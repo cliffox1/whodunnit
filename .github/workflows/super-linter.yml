@@ -30,11 +30,16 @@ jobs:
         id: get_file_changes
         uses: tj-actions/changed-files@v35
             
-      - name: List all changed files
+#       - name: List all changed files
+#         run: |
+#           for file in ${{ steps.changed-files.outputs.all_changed_and_modified_files}}; do
+#             echo "$file was changed"
+#           done
+
+      - name: Run a step if my-file.txt was modified
+        if: contains(steps.changed-files.outputs.modified_files, 'my-file.txt')
         run: |
-          for file in ${{ steps.changed-files.outputs.all_changed_and_modified_files}}; do
-            echo "$file was changed"
-          done
+          echo "my-file.txt file has been modified."
 
 
 
