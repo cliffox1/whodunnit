@@ -41,19 +41,18 @@ jobs:
         if: steps.changed-files-specific.outputs.only_changed == 'true'
         shell: bash -l {0}
         run: |
-          mylintees=$(
+          echo "lintees=$(
           echo \
           $(echo ${{ steps.changed-files-specific.outputs.only_changed }}
-          
-          )
-            echo "mylintees =$mylintees"
+          )" >> $GITHUB_OUTPUT
 
        
       - name: Lint Code Base
         id: sqlfluff_json
+        if: steps.get_files_to_lint.outputs.lintees != ''
         shell: bash -l {0}
         run: |
-          sqlfluff lint --format github-annotation --annotation-level failure ${{ steps.changed-files-specific.outputs.only_changed }}> annotations.json
+          sqlfluff lint --format github-annotation --annotation-level failure ${{ steps.get_files_to_lint.outputs.lintees}}> annotations.json
           
       - name: Annotate
         uses: yuzutech/annotations-action@v0.4.0
