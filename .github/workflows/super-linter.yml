@@ -33,8 +33,6 @@ jobs:
         uses: tj-actions/changed-files@v35 
         with:  
           since_last_remote_commit: true   
-          files: |
-            *.sql
             
       - name: List all changed files
         run: |
