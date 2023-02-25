@@ -12,7 +12,7 @@ select
     public_profile.license_id,
     public_profile.address_number,
     public_profile.address_street_name,
-    public_profile.ssn,
+    , public_profile.ssn,
     , public_profile.age,
     ,public_profile.height,
     , public_profile.eye_color,
