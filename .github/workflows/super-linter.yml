@@ -36,9 +36,9 @@ jobs:
           files: |
             **/*.sql
             
-      - name: Run step if only the files listed above change
-        id: get_files_to_lint
-        if: steps.changed-files-specific.outputs.only_changed == 'true'
+#       - name: Run step if only the files listed above change
+#         id: get_files_to_lint
+#         if: steps.changed-files-specific.outputs.only_changed == 'true'
 #         shell: bash -l {0}
 #         run: |
 #           echo "lintees=$(
@@ -47,10 +47,17 @@ jobs:
 #         run: |
 #           for file in ${{ steps.changed-files-specific.outputs.only_changed }}
 #           echo "$file"
+#         run: |
+#           for file in ${{ steps.changed-files-specific.outputs.only_changed }}; do
+#                     echo "$file"
+#                     done
+      - name: List all changed files
+        id: get_files_to_lint
         run: |
-          for file in ${{ steps.changed-files-specific.outputs.only_changed }}; do
-                    echo "$file"
-                    done
+          for file in ${{steps.get_file_changes.outputs.all_changed_and_modified_files}}; do
+            echo "$file was changed"
+          done
+
 
        
 #       - name: Lint Code Base
