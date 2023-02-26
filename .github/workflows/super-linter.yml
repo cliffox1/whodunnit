@@ -39,7 +39,7 @@ jobs:
       - name: Run step if only the files listed above change
         id: get_files_to_lint
         if: steps.changed-files-specific.outputs.only_changed == 'true'
-        shell: bash -l {0}
+#         shell: bash -l {0}
 #         run: |
 #           echo "lintees=$(
 #           $(echo ${{ steps.changed-files-specific.outputs.only_changed }}
