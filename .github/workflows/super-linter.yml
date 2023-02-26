@@ -54,18 +54,18 @@ jobs:
       - name: List specific changed files
         id: get_files_to_lint
         run: |
-          for file in ${{steps.changed-files-specific.outputs.all_changed_and_modified_files}}; do
-            echo "$file"
+          lintees = for file in ${{steps.changed-files-specific.outputs.all_changed_and_modified_files}}; do
+            echo "$lintees"
           done
 
 
        
-#       - name: Lint Code Base
-#         id: sqlfluff_json
-#         if: steps.get_files_to_lint.outputs.lintees != ''
-#         shell: bash -l {0}
-#         run: |
-#           sqlfluff lint --format github-annotation --annotation-level failure ${{ steps.get_files_to_lint.outputs.lintees}}> annotations.json
+      - name: Lint Code Base
+        id: sqlfluff_json
+        if: steps.get_files_to_lint.outputs.lintees != ''
+        shell: bash -l {0}
+        run: |
+          sqlfluff lint --format github-annotation --annotation-level failure ${{ steps.get_files_to_lint.outputs.lintees}}> annotations.json
           
 #       - name: Annotate
 #         uses: yuzutech/annotations-action@v0.4.0
