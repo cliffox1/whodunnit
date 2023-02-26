@@ -45,8 +45,8 @@ jobs:
 #           $(echo ${{ steps.changed-files-specific.outputs.only_changed }}
 #           )" >> $GITHUB_OUTPUT
         run: |
-          echo ${{ steps.changed-files-specific.outputs.only_changed }}
-          
+          for file in ${{ steps.changed-files-specific.outputs.only_changed }}
+          echo "$file"
 
        
 #       - name: Lint Code Base
