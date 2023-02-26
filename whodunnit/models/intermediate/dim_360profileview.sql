@@ -9,9 +9,9 @@ get_fit as (
 select
     public_profile.person_id,
     public_profile.person_name,
-    ,public_profile.license_id,
-    , public_profile.address_number,
-    , public_profile.address_street_name,
+    public_profile.license_id,
+    public_profile.address_number,
+    public_profile.address_street_name,
     , public_profile.ssn,
     , public_profile.age,
     ,public_profile.height,
