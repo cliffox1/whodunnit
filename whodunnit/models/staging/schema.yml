@@ -104,7 +104,7 @@ sources:
       - name: solution
       
 models:
-  - name: crime_scene_report
+  - name: stg_crime_scene_report
     description: >
       police department's database
     columns:
@@ -113,7 +113,7 @@ models:
       - name: description
       - name: city
 
-  - name: drivers_license
+  - name: stg_drivers_license
     description: >
       person drivers_license
     columns:
@@ -128,7 +128,7 @@ models:
       - name: car_model
 
 
-  - name: facebook_event_checkin
+  - name: stg_facebook_event_checkin
     description: >
       digital profile/ online activity
     columns:
@@ -137,7 +137,7 @@ models:
       - name: event_name
       - name: event_date
 
-  - name: get_fit_now_check_in
+  - name: stg_get_fit_now_check_in
     description: >
       business entity get_fit db
     tests:
@@ -161,7 +161,7 @@ models:
       - name: check_out_timestamp
 
 
-  - name: get_fit_now_member
+  - name: stg_get_fit_now_member
     description: >
       business entity get_fit db
     columns:
@@ -171,21 +171,21 @@ models:
       - name: membership_start_date
       - name: membership_status
 
-  - name: income
+  - name: stg_income
     description: >
       paye db
     columns:
       - name: ssn
       - name: annual_income
 
-  - name: interview
+  - name: stg_interview
     description: >
       police db
     columns:
       - name: person_id
       - name: transcript
 
-  - name: person
+  - name: stg_person
     description: >
       police db
     columns:

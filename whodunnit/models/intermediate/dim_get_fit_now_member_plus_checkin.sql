@@ -1,9 +1,9 @@
 with get_fit_now_member as (
-    select * from {{ ref('get_fit_now_member') }}
+    select * from {{ ref('stg_get_fit_now_member') }}
 ),
 
 get_fit_now_check_in as (
-    select * from {{ ref('get_fit_now_check_in') }}
+    select * from {{ ref('stg_get_fit_now_check_in') }}
 )
 
 select

@@ -1,26 +1,26 @@
 with person as (
     select *
-    from {{ ref('person') }}
+    from {{ ref('stg_person') }}
 ),
 
 driver as (
     select *
-    from {{ ref('drivers_license') }}
+    from {{ ref('stg_drivers_license') }}
 ),
 
 income as (
     select *
-    from {{ ref('income') }}
+    from {{ ref('stg_income') }}
 ),
 
 digitalpresence as (
     select *
-    from {{ ref('facebook_event_checkin') }}
+    from {{ ref('stg_facebook_event_checkin') }}
 ),
 
 interview as (
     select *
-    from {{ ref('interview') }}
+    from {{ ref('stg_interview') }}
 ),
 
 profile_sub as (
