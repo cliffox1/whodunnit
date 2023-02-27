@@ -1,5 +1,5 @@
 # whodunnit
-Using dbt to perform analytics on SQL MURDER MYSTERY data.
+Using dbt to perform analytics on SQL MURDER MYSTERY (https://mystery.knightlab.com)data.
 
 ## Requirements
 * dbt-core, dbt-postgres, pgadmin
