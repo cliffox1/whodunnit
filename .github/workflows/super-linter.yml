@@ -65,12 +65,12 @@ jobs:
         run: |
           sqlfluff lint --format github-annotation --annotation-level failure ${{ steps.get_files_to_lint.outputs.file}}> annotations.json
           
-#       - name: Annotate
-#         uses: yuzutech/annotations-action@v0.4.0
-#         with:
-#           repo-token: "${{ secrets.GITHUB_TOKEN }}"
-#           title: 'lint'
-#           input: './annotations.json'
+      - name: Annotate
+        uses: yuzutech/annotations-action@v0.4.0
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          title: 'lint'
+          input: './annotations.json'
       
       
       
