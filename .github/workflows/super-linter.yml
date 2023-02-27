@@ -56,10 +56,8 @@ jobs:
         run: |
             for file in ${{steps.changed-files-specific.outputs.all_changed_and_modified_files}}; do
             echo "$file"
-          done
+            done
 
-
-       
       - name: Lint Code Base
         id: sqlfluff_json
         if: steps.get_files_to_lint.outputs.file != ''
