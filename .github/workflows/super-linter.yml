@@ -15,7 +15,7 @@ jobs:
       with:
         fetch-depth: 0
 
-    - uses: khan/pull-request-comment-trigger@master
+    - uses: khan/pull-request-comment-trigger@masterv1.1.0
       id: lint
       with:
         trigger: '/lint'
