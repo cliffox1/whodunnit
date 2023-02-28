@@ -1,0 +1,3 @@
+docker
+dbt-postgres
+pre-commit
