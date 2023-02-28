@@ -1,57 +1,66 @@
-name: 🔎  Lint files
+# This workflow executes several linters on changed files based on languages used in your code base whenever
+# you push a code or open a pull request.
+#
+# You can adjust the behavior by modifying this file.
+# For more information, see:
+# https://github.com/github/super-linter
+name: Lint Code Base
 
 on:
-  issue_comment:
-    types: [created]
-
+  pull_request:
+    branches: [ "main" ]
+    types:
+      - opened
+      
+  workflow_dispatch:
+  
 jobs:
-  lint-files:
-    if: github.event.pull_request.draft == false
+  lint_project:
+    name: Run SQLFluff linter
     runs-on: ubuntu-latest
-
     steps:
+      - uses: "actions/checkout@v3"
+        with:
+          fetch-depth: 0
+      - uses: "actions/setup-python@v4"
+        with:
+          python-version: "3.10"
+#       - name: Install SQLFluff
+#         run: "pip install sqlfluff"
+      - name: Install SQLFluff_dbt_templater
+        run: "pip install dbt-postgres sqlfluff-templater-dbt"
+      - name: Install pytz module
+        run: "pip install pytz"
+        
+      - name: Get specific changed files
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v35 
+        with:  
+          since_last_remote_commit: true
+          files: |
+            **/*.sql         
 
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-
-    - uses: khan/pull-request-comment-trigger@v1.1.0
-      id: lint
-      with:
-        trigger: '/lint'
-        reaction: rocket
-      env:
-        GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-
-    - name: Set up Python 3.6
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.6
-      if: steps.lint.outputs.triggered == 'true'
-
-    - name: Install sqlfluff
-      run: pip install sqlfluff
-      if: steps.lint.outputs.triggered == 'true'
-
-    - uses: xt0rted/pull-request-comment-branch@v1
-      id: comment-branch
-      if: steps.lint.outputs.triggered == 'true'
-
-    - run: git checkout ${{ steps.comment-branch.outputs.head_ref }}
-      if: steps.lint.outputs.triggered == 'true'
-
-    - name: Lint files
-      run: |
-        touch output.txt
-        echo "```" >> output.txt
-        diff-quality --violations sqlfluff --compare-branch remotes/origin/main >> output.txt
-        echo "```" >> output.txt
-      if: steps.lint.outputs.triggered == 'true'
-
-    - name: Send Comment
-      uses: maxkomarychev/octions/octions/issues/create-comment@master
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        issue_number: ${{ github.event.issue.number }}
-        body: FILE::output.txt
-      if: hashFiles('output.txt') != ''
+      - name: Get changed files to lint
+        id: get_files_to_lint
+        shell: bash -l {0}
+        run: |
+          # Set the command in the $() brackets as an output to use in later steps
+          echo "lintees=$(
+          echo \
+          $(echo ${{steps.changed-files-specific.outputs.all_changed_and_modified_files }} )
+          )"  >> $GITHUB_OUTPUT
+            
+      - name: Lint Code Base
+        id: sqlfluff_json
+        if: steps.get_files_to_lint.outputs.lintees != ''
+        shell: bash -l {0}
+        run: |
+          sqlfluff lint --format github-annotation --annotation-level failure --nofail ${{ steps.get_files_to_lint.outputs.lintees }} | grep -v "Partial parse save file not found. Starting full parse." > annotations.json
+     
+      - name: Annotate
+        uses: yuzutech/annotations-action@v0.4.0
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          title: 'lint'
+          input: './annotations.json'
+      
