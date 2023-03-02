@@ -2,3 +2,5 @@
 target/
 dbt_packages/
 logs/
+psql_password.txt/
+psql_user.txt
