@@ -5,3 +5,6 @@ packages:
   - package: elementary-data/elementary
     version: 0.7.1
     ## Docs: https://docs.elementary-data.com
+
+  - package: mjirv/dbt_datamocktool
+    version: [">=0.3.0"]

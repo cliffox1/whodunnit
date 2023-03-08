@@ -1,75 +1,75 @@
-with person as (
+with import_person as (
     select *
     from {{ ref('stg_person') }}
 ),
 
-driver as (
+import_driver as (
     select *
     from {{ ref('stg_drivers_license') }}
 ),
 
-income as (
+import_income as (
     select *
     from {{ ref('stg_income') }}
 ),
 
-digitalpresence as (
+import_digitalpresence as (
     select *
     from {{ ref('stg_facebook_event_checkin') }}
 ),
 
-interview as (
+import_interview as (
     select *
     from {{ ref('stg_interview') }}
 ),
 
-profile_sub as (
+logical_profile_sub as (
     select
-        person.person_id,
-        person.person_name,
-        person.license_id,
-        person.address_number,
-        person.address_street_name,
-        person.ssn,
-        driver.age,
-        driver.height,
-        driver.eye_color,
-        driver.hair_color,
-        driver.gender,
-        driver.plate_number,
-        driver.car_make,
-        driver.car_model,
-        income.annual_income
-    from person
-    left join driver on person.license_id = driver.license_id
-    left join income on person.ssn = income.ssn
+        import_person.person_id,
+        import_person.person_name,
+        import_person.license_id,
+        import_person.address_number,
+        import_person.address_street_name,
+        import_person.ssn,
+        import_driver.age,
+        import_driver.height,
+        import_driver.eye_color,
+        import_driver.hair_color,
+        import_driver.gender,
+        import_driver.plate_number,
+        import_driver.car_make,
+        import_driver.car_model,
+        import_income.annual_income
+    from import_person
+    left join import_driver on import_person.license_id = import_driver.license_id
+    left join import_income on import_person.ssn = import_income.ssn
 )
 
 select
-    profile_sub.person_id,
-    profile_sub.person_name,
-    profile_sub.license_id,
-    profile_sub.address_number,
-    profile_sub.address_street_name,
-    profile_sub.ssn,
-    profile_sub.age,
-    profile_sub.height,
-    profile_sub.eye_color,
-    profile_sub.hair_color,
-    profile_sub.gender,
-    profile_sub.plate_number,
-    profile_sub.car_make,
-    profile_sub.car_model,
-    profile_sub.annual_income,
+    logical_profile_sub.person_id,
+    logical_profile_sub.person_name,
+    logical_profile_sub.license_id,
+    logical_profile_sub.address_number,
+    logical_profile_sub.address_street_name,
+    logical_profile_sub.ssn,
+    logical_profile_sub.age,
+    logical_profile_sub.height,
+    logical_profile_sub.eye_color,
+    logical_profile_sub.hair_color,
+    logical_profile_sub.gender,
+    logical_profile_sub.plate_number,
+    logical_profile_sub.car_make,
+    logical_profile_sub.car_model,
+    logical_profile_sub.annual_income,
     array_agg(
         array[
-            digitalpresence.event_date,
-            digitalpresence.event_id,
-            digitalpresence.event_name
+            import_digitalpresence.event_date,
+            import_digitalpresence.event_id,
+            import_digitalpresence.event_name
         ]
     ) as digitalpresence_event,
-    array_agg(array[interview.transcript]) as testimony_transcript
-from profile_sub
-left join digitalpresence on profile_sub.person_id = digitalpresence.person_id
-left join interview on profile_sub.person_id = interview.person_id
+    array_agg(array[import_interview.transcript]) as testimony_transcript
+from logical_profile_sub
+left join import_digitalpresence on logical_profile_sub.person_id = import_digitalpresence.person_id
+left join import_interview on logical_profile_sub.person_id = import_interview.person_id
 group by 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
