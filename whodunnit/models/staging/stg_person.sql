@@ -2,7 +2,9 @@
 
 with source_data as (
 
-    select * from {{ source('public', 'person') }}
+    select *
+    , now() as etl_date 
+     from {{ source('public', 'person') }}
 
 )
 
@@ -12,6 +14,14 @@ select
     license_id,
     address_number,
     address_street_name,
-    ssn
-
+    ssn,
+    etl_date
 from source_data
+
+{{
+config({
+    "post-hook": [
+      "{{ index(this, 'person_id')}}",
+    ],
+    })
+}}

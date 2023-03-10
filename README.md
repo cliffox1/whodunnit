@@ -2,7 +2,7 @@
 Using dbt to perform analytics on SQL MURDER MYSTERY (https://mystery.knightlab.com)data.
 
 ## Requirements
-* dbt-core, dbt-postgres, pgadmin
+* dbt-core, dbt-postgres, pgadmin, pgloader
 * Docker Compose
 
 ## Start the database container
@@ -45,9 +45,16 @@ pip install -r requirements.txt
 ```
 Make sure you are using a virtual environment for this. 
 
-Now move inside the demo folder.
+Now move inside the models folder.
 ```bash
-cd demo
+cd models
+
+set up a source file for the variables on dbt cli i.e. create a bash script called set_env_var.sh and then source set_env_var.sh in your terminal.
+
+An example of the bash script would be:
+
+export DBT_ENV_SECRET_USER=xxxxxxx
+export DBT_ENV_SECRET_PASSWORD=xxxxxx
 ```
 
 

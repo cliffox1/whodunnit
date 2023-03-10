@@ -2,9 +2,19 @@
 
 with source_data as (
 
-    select * from {{ source('public', 'income') }}
+    select *
+    , now() as etl_date 
+    from {{ source('public', 'income') }}
 
 )
 
 select *
 from source_data
+
+{{
+config({
+    "post-hook": [
+      "{{ index(this, 'ssn')}}",
+    ],
+    })
+}}

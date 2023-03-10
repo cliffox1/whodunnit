@@ -2,7 +2,9 @@
 
 with source_data as (
 
-    select * from {{ source('public', 'get_fit_now_member') }}
+    select * 
+    , now() etl_date 
+    from {{ source('public', 'get_fit_now_member') }}
 
 )
 
@@ -17,5 +19,14 @@ select
         ) || '-' || substring(
             cast(membership_start_date as text), 5, 2
         ) || '-' || substring(cast(membership_start_date as text), 7, 2)
-    ) as membership_start_date
+    ) as membership_start_date,
+    etl_date
 from source_data
+
+{{
+config({
+    "post-hook": [
+      "{{ index(this, 'membership_id')}}",
+    ],
+    })
+}}

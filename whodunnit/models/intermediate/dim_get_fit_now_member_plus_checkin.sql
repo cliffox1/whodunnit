@@ -18,4 +18,4 @@ from import_get_fit_now_member a
 left join
     import_get_fit_now_check_in b on
         a.membership_id = b.membership_id
-group by 1, 2, 3, 4, 5
+group by 1, 2, 3, 4, 5, 6
