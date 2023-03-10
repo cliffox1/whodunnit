@@ -1,0 +1,33 @@
+version: 2
+     
+models:
+  - name: dim_360profileview
+    description: >
+      police department's database
+  - name: dim_get_fit_now_member_plus_checkin
+    description: >
+      police department's database
+  - name: dim_profile
+    description: >
+      police department's database
+
+
+metrics:
+  - name: Gympersons
+    label: gympersons
+    model: ref('dim_360profileview')
+    description: "number of persons who are gym members"
+
+    calculation_method: count_distinct
+    expression: person_id 
+
+    timestamp: membership_start_date
+    time_grains: [year]
+
+
+    filters:
+      - field: membership_id
+        operator: 'is not'
+        value: 'null'
+
+ 

@@ -2,7 +2,9 @@
 
 with source_data as (
 
-    select * from {{ source('public', 'drivers_license') }}
+    select * 
+    , now () as etl_date
+    from {{ source('public', 'drivers_license') }}
 
 )
 
@@ -15,5 +17,14 @@ select
     gender,
     plate_number,
     car_make,
-    car_model
+    car_model,
+    etl_date
 from source_data
+
+{{
+config({
+    "post-hook": [
+      "{{ index(this, 'license_id')}}",
+    ],
+    })
+}}

@@ -2,7 +2,9 @@
 
 with source_data as (
 
-    select * from {{ source('public', 'get_fit_now_check_in') }}
+    select * 
+    , now() as etl_date
+    from {{ source('public', 'get_fit_now_check_in') }}
 
 ),
 
@@ -24,13 +26,14 @@ source_scrub as (
             else cast(check_in_time as text)
         end as check_in,
 
-
+-- converting date provided in int64 to date data type.
         case when length(cast(check_out_time as text)) = 1
             then cast(check_out_time as text) || '00'
             when length(cast(check_out_time as text)) = 2
                 then cast(check_out_time as text) || '0'
             else cast(check_out_time as text)
-        end as check_out
+        end as check_out,
+        etl_date
     from source_data
 ),
 
@@ -45,6 +48,7 @@ source_clean as (
             when length(check_in) = 3 then substring(check_in, 2, 2)
             end as integer) as checkin_minutes
         ,
+-- enforing date data on the data (which appear not to be dates but just numbers) 
         cast(
             case when
                 cast(
@@ -195,12 +199,8 @@ source_clean as (
         case when length(check_out) = 4 then substring(check_out, 3, 2)
             when length(check_out) = 3 then substring(check_out, 2, 2)
         end
-        as checkout_minutes
-
-
-
-
-
+        as checkout_minutes,
+        etl_date
     from source_scrub
 )
 
