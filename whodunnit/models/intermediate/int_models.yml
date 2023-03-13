@@ -12,22 +12,6 @@ models:
       police department's database
 
 
-metrics:
-  - name: Gympersons
-    label: gympersons
-    model: ref('dim_360profileview')
-    description: "number of persons who are gym members"
 
-    calculation_method: count_distinct
-    expression: person_id 
-
-    timestamp: membership_start_date
-    time_grains: [year]
-
-
-    filters:
-      - field: membership_id
-        operator: 'is not'
-        value: 'null'
 
  
