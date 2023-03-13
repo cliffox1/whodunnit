@@ -1,15 +1,12 @@
 version: 2
      
 models:
-  - name: dim_360profileview
-    description: >
-      police department's database
   - name: dim_get_fit_now_member_plus_checkin
     description: >
-      police department's database
+      get_fit dwh
   - name: dim_profile
     description: >
-      police department's database
+      police department's dwh plus 
 
 
 

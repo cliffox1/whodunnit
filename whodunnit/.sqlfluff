@@ -2,6 +2,8 @@
 templater = dbt
 dialect = postgres
 [sqlfluff:templater:dbt]
+[sqlfluff:templater:jinja]
+apply_dbt_builtins = True
 project_dir = .
 profile = whodunnit
 

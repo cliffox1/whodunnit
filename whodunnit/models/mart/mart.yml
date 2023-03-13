@@ -1,0 +1,6 @@
+version: 2
+     
+models:
+  - name: fct_360profileview
+    description: >
+      police department's database

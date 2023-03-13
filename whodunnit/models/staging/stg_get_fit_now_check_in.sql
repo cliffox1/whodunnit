@@ -44,162 +44,69 @@ source_clean as (
         check_in,
         check_out
         ,
-        cast(case when length(check_in) = 4 then substring(check_in, 3, 2)
-            when length(check_in) = 3 then substring(check_in, 2, 2)
-            end as integer) as checkin_minutes
+        cast({{date_parts_a('check_in')}} as integer) as checkin_minutes
         ,
 -- enforing date data on the data (which appear not to be dates but just numbers) 
         cast(
             case when
                 cast(
-                    case
-                        when length(check_in) = 4 then substring(check_in, 3, 2)
-                        when length(check_in) = 3 then substring(check_in, 2, 2)
-                    end as integer
-                ) > 59 then
+                    {{date_parts_a('check_in')}} as integer
+                ) 
+                > 59 then
                 cast(cast(
-                    case
-                        when length(check_in) = 4 then substring(check_in, 1, 2)
-                        when
-                            length(
-                                check_in
-                            ) = 3 then '0' || substring(check_in, 1, 1)
-                    end as integer
+                    {{date_parts_b('check_in')}}
+                    as integer
                 ) + 1 as text
                 )
                 else
                     (
-                        case
-                            when
-                                length(
-                                    check_in
-                                ) = 4 then substring(check_in, 1, 2)
-                            when
-                                length(
-                                    check_in
-                                ) = 3 then '0' || substring(check_in, 1, 1)
-                        end) end
+                     {{date_parts_b('check_in')}}      
+                    ) end
 
 
             || ':' || case when
                 cast(
-                    case
-                        when length(check_in) = 4 then substring(check_in, 3, 2)
-                        when length(check_in) = 3 then substring(check_in, 2, 2)
-                    end as integer
-                ) > 59 then cast(
-                    cast(
-                        case
-                            when
-                                length(
-                                    check_in
-                                ) = 4 then substring(check_in, 3, 2)
-                            when
-                                length(
-                                    check_in
-                                ) = 3 then substring(check_in, 2, 2)
-                        end as integer) - 60
-                    as text
+                {{date_parts_a('check_in')}} as integer
+                ) 
+                > 59 then 
+                cast(cast(
+                {{date_parts_a('check_in')}} as integer) 
+                - 60 as text
                 )
                 else
                     (
-                        case
-                            when
-                                length(
-                                    check_in
-                                ) = 4 then substring(check_in, 3, 2)
-                            when
-                                length(
-                                    check_in
-                                ) = 3 then substring(check_in, 2, 2)
-                        end) end as time) as checkin_minutes_1,
+                      {{date_parts_a('check_in')}}
+                    ) end as time) as checkin_minutes_1,
 
 
 
 
         cast(
             case when
-                cast(
-                    case
-                        when
-                            length(
-                                check_out
-                            ) = 4 then substring(check_out, 3, 2)
-                        when
-                            length(
-                                check_out
-                            ) = 3 then substring(check_out, 2, 2)
-                    end as integer
+                cast({{date_parts_a('check_out')}} as integer
                 ) > 59 then
                 cast(cast(
-                    case
-                        when
-                            length(
-                                check_out
-                            ) = 4 then substring(check_out, 1, 2)
-                        when
-                            length(
-                                check_out
-                            ) = 3 then '0' || substring(check_out, 1, 1)
-                    end as integer
+                    {{date_parts_b('check_out')}}
+                    as integer
                 ) + 1 as text
                 )
                 else
                     (
-                        case
-                            when
-                                length(
-                                    check_out
-                                ) = 4 then substring(check_out, 1, 2)
-                            when
-                                length(
-                                    check_out
-                                ) = 3 then '0' || substring(check_out, 1, 1)
-                        end) end || ':'
+                     {{date_parts_b('check_out')}}
+                    ) end || ':'
 
             || case when
-                cast(
-                    case
-                        when
-                            length(
-                                check_out
-                            ) = 4 then substring(check_out, 3, 2)
-                        when
-                            length(
-                                check_out
-                            ) = 3 then substring(check_out, 2, 2)
-                    end as integer
-                ) > 59 then cast(
-                    cast(
-                        case
-                            when
-                                length(
-                                    check_out
-                                ) = 4 then substring(check_out, 3, 2)
-                            when
-                                length(
-                                    check_out
-                                ) = 3 then substring(check_out, 2, 2)
-                        end as integer
+                cast({{date_parts_a('check_out')}} as integer
+                ) > 59 then 
+                cast(cast(
+                    {{date_parts_a('check_out')}} as integer
                     ) - 60 as text)
                 else
                     (
-                        case
-                            when
-                                length(
-                                    check_out
-                                ) = 4 then substring(check_out, 3, 2)
-                            when
-                                length(
-                                    check_out
-                                ) = 3 then substring(check_out, 2, 2)
-                        end) end as time)
-        as checkout_minutes_1,
+                     {{date_parts_a('check_out')}}
+                    ) end as time) as checkout_minutes_1,
 
-        case when length(check_out) = 4 then substring(check_out, 3, 2)
-            when length(check_out) = 3 then substring(check_out, 2, 2)
-        end
-        as checkout_minutes,
+        {{date_parts_a('check_out')}} as checkout_minutes,
         etl_date
     from source_scrub
 )
