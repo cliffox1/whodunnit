@@ -1,5 +1,5 @@
 select * 
 from {{ metrics.calculate(
-    metric('Gympersons'),
+    metric('metric_gympersons'),
     grain='year'
 ) }}

@@ -1,7 +1,7 @@
 version: 2
 
 metrics:
-  - name: Gympersons
+  - name: metric_gympersons
     label: gympersons
     model: ref('dim_360profileview')
     description: "number of persons who are gym members"
