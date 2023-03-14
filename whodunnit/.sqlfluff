@@ -17,7 +17,7 @@ ignore = None
 # Also works for templating and parsing errors by using TMP or PRS
 warnings = None
 # Ignore linting errors found within sections of code coming directly from
-# templated code (e.g. from within Jinja curly braces. Note that it does not
+# templated code (e.g. from within Jinja curly braces.) Note that it does not
 # ignore errors from literal code found within template loops.
 ignore_templated_areas = True
 # can either be autodetect or a valid encoding e.g. utf-8, utf-8-sig
