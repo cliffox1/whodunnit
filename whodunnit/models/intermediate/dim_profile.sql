@@ -41,7 +41,8 @@ logical_profile_sub as (
         import_driver.car_model,
         import_income.annual_income
     from import_person
-    left join import_driver on import_person.license_id = import_driver.license_id
+    left join
+        import_driver on import_person.license_id = import_driver.license_id
     left join import_income on import_person.ssn = import_income.ssn
 )
 
@@ -70,6 +71,10 @@ select
     ) as digitalpresence_event,
     array_agg(array[import_interview.transcript]) as testimony_transcript
 from logical_profile_sub
-left join import_digitalpresence on logical_profile_sub.person_id = import_digitalpresence.person_id
-left join import_interview on logical_profile_sub.person_id = import_interview.person_id
+left join
+    import_digitalpresence on
+        logical_profile_sub.person_id = import_digitalpresence.person_id
+left join
+    import_interview on
+        logical_profile_sub.person_id = import_interview.person_id
 group by 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
