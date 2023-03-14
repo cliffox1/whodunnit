@@ -3,7 +3,7 @@ version: 2
 metrics:
   - name: metric_gympersons
     label: gympersons
-    model: ref('dim_360profileview')
+    model: ref('fct_360profileview')
     description: "number of persons who are gym members"
 
     calculation_method: count_distinct
