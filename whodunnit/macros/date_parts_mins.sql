@@ -1,5 +1,5 @@
 
-{% macro date_parts_a(column) -%}
+{% macro date_parts_mins(column) -%}
      case when length({{column}}) = 4 then substring({{column}}, 3, 2)
           when length({{column}}) = 3 then substring({{column}}, 2, 2)
      end 
