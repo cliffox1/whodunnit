@@ -46,7 +46,7 @@ source_clean as (
         ,
         cast({{ date_parts_mins('check_in') }} as integer) as checkin_minutes
         ,
--- enforing date data on the data (which appear not to be dates but just numbers) 
+-- enforing time data on the data (which appear not to be timestamps but just numbers) 
         cast(
             case when
                 cast(
