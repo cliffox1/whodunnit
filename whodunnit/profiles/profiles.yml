@@ -23,18 +23,16 @@ whodunnit:
     
     elementary:
       outputs:
-      default:
-       type: postgres
-       host: "localhost"
-       port: 5432
-       user: "postgres"
-       password: "postgres"
-       dbname: "postgres"
-       schema: "whodunnit_elementary"
-       threads: 4
-       keepalives_idle: 0
-       connect_timeout: 10
-      
+        default:
+          type: postgres
+          host: localhost
+          port: 5432
+          user: "postgres"
+          password: "postgres"
+          dbname: "postgres"
+          schema: whodunnit_elementary
+          threads: 4
+  
     local:
       type: postgres
       host: "localhost"
