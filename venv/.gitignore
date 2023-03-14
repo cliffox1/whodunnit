@@ -1,0 +1,10 @@
+target/
+dbt_packages/
+logs/
+psql_user.txt
+psql_password.txt
+set_env_var.sh
+edr.logs
+manifest.json
+elementary_output.json
+elementary_report.html
