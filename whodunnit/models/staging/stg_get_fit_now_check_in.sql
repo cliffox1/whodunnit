@@ -1,11 +1,9 @@
 {{ config(materialized='table') }}
 
 with source_data as (
-
-    select * 
-    , now() as etl_date
+    select * ,
+    now() as etl_date
     from {{ source('public', 'get_fit_now_check_in') }}
-
 ),
 
 source_scrub as (
@@ -24,9 +22,7 @@ source_scrub as (
             when length(cast(check_in_time as text)) = 2
                 then cast(check_in_time as text) || '0'
             else cast(check_in_time as text)
-        end as check_in,
-
--- converting date provided in int64 to date data type.
+        end as check_in, -- converting date provided in int64 to date data type.
         case when length(cast(check_out_time as text)) = 1
             then cast(check_out_time as text) || '00'
             when length(cast(check_out_time as text)) = 2
@@ -42,11 +38,8 @@ source_clean as (
         membership_id,
         check_in_date,
         check_in,
-        check_out
-        ,
-        cast({{ date_parts_mins('check_in') }} as integer) as checkin_minutes
-        ,
--- enforing time data on the data (which appear not to be timestamps but just numbers) 
+        check_out,
+        cast({{ date_parts_mins('check_in') }} as integer) as checkin_minutes, -- enforing time data on the data (which appear not to be timestamps but just numbers) 
         cast(
             case when
                 cast(
