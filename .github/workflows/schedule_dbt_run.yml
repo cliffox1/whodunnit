@@ -35,8 +35,8 @@ jobs:
           dbt_command: "dbt run --profiles-dir ./whodunnit/profiles --target main"
           dbt_project_folder: "whodunnit"
         env:
-          DBT_POSTGRES_USER: ${{ secrets.DBT_POSTGRES_USER }}
-          DBT_POSTGRES_PASSWORD: ${{ secrets.DBT_POSTGRES_PASSWORD }}
+          DBT_ENV_SECRET_USER: ${{ secrets.DBT_ENV_SECRET_USER }}
+          DBT_ENV_SECRET_PASSWORD: ${{ secrets.DBT_ENV_SECRET_PASSWORD }}
 
 #       - uses: "actions/setup-python@v4"
 #         with:
