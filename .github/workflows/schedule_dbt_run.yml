@@ -32,11 +32,11 @@ jobs:
       - name: Install dependencies
         run: |
             pip install dbt-postgres
-            dbt deps --project-dir ./whodunnit
+            dbt deps --project-dir ./whodunnit/
 
     # dbt related commands here - run use --target prod/dev to run for specific environments
       - name: Run dbt models
-        run: dbt run --target main --project-dir ./whodunnit
+        run: dbt run --target main --project-dir ./whodunnit/
 
       - name: Test dbt models
-        run: dbt test --target main --project-dir ./whodunnit
+        run: dbt test --target main --project-dir ./whodunnit/
