@@ -9,12 +9,12 @@ on:
     branches:
     # run on push to development branch
     - development
-env:
-    DBT_PROFILES_DIR: ./
+# env:
+#     DBT_PROFILES_DIR: ./
 
-    DBT_POSTGRES_USER: ${{ secrets.DBT_POSTGRES_USER }}
-    DBT_POSTGRES_PASSWORD: ${{ secrets.DBT_POSTGRES_PASSWORD }}
-    DBT_POSTGRE_DB: ${{ secrets.DBT_POSTGRE_DB }}
+#     DBT_POSTGRES_USER: ${{ secrets.DBT_POSTGRES_USER }}
+#     DBT_POSTGRES_PASSWORD: ${{ secrets.DBT_POSTGRES_PASSWORD }}
+#     DBT_POSTGRE_DB: ${{ secrets.DBT_POSTGRE_DB }}
 
 jobs:
  schedule_dbt_run:
@@ -23,20 +23,32 @@ jobs:
 
     steps:
       - name: Check out
-        uses: "actions/checkout@master"
-
-      - uses: "actions/setup-python@v4"
+      - uses: actions/checkout@v3
         with:
-         python-version: "3.10"
+          fetch-depth: 0
+          
+    
+      - name: dbt-action
+        uses: mwhitaker/dbt-action@master
+        with:
+          dbt_command: "dbt run --profiles-dir ./whodunnit/ --target main"
+          dbt_project_folder: "./whodunnit/"
+        env:
+          DBT_POSTGRES_USER: ${{ secrets.DBT_POSTGRES_USER }}
+          DBT_POSTGRES_PASSWORD: ${{ secrets.DBT_POSTGRES_PASSWORD }}
 
-      - name: Install dependencies
-        run: |
-            pip install dbt-postgres
-            dbt deps --project-dir ./whodunnit/
+#       - uses: "actions/setup-python@v4"
+#         with:
+#          python-version: "3.10"
 
-    # dbt related commands here - run use --target prod/dev to run for specific environments
-      - name: Run dbt models
-        run: dbt run --target main --project-dir ./whodunnit/
+#       - name: Install dependencies
+#         run: |
+#             pip install dbt-postgres
+#             dbt deps --project-dir ./whodunnit/
 
-      - name: Test dbt models
-        run: dbt test --target main --project-dir ./whodunnit/
+#     # dbt related commands here - run use --target prod/dev to run for specific environments
+#       - name: Run dbt models
+#         run: dbt run --target main --project-dir ./whodunnit/
+
+#       - name: Test dbt models
+#         run: dbt test --target main --project-dir ./whodunnit/
