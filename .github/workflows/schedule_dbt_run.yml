@@ -33,7 +33,7 @@ jobs:
         uses: mwhitaker/dbt-action@master
         with:
           dbt_command: "dbt run --profiles-dir ./whodunnit/profiles --target main"
-#           dbt_project_folder: "whodunnit"
+          dbt_project_folder: "./whodunnit"
         env:
           DBT_ENV_SECRET_USER: ${{ secrets.DBT_ENV_SECRET_USER }}
           DBT_ENV_SECRET_PASSWORD: ${{ secrets.DBT_ENV_SECRET_PASSWORD }}
