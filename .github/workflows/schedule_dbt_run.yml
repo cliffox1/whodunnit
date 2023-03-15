@@ -32,7 +32,7 @@ jobs:
       - name: dbt-action
         uses: mwhitaker/dbt-action@master
         with:
-          dbt_command: "dbt run --profiles-dir . --target main"
+          dbt_command: "dbt run --profiles-dir ./whodunnit/profiles --target main"
           dbt_project_folder: "whodunnit"
         env:
           DBT_POSTGRES_USER: ${{ secrets.DBT_POSTGRES_USER }}
