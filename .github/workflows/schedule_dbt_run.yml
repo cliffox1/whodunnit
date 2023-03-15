@@ -30,7 +30,7 @@ jobs:
           fetch-depth: 0
            
       - name: dbt-action
-        uses: mwhitaker/dbt-action@master
+        uses: mwhitaker/dbt-action@v1.3.0
         with:
           dbt_command: "dbt run --profiles-dir ./whodunnit/profiles --target main"
           dbt_project_folder: "./whodunnit"
