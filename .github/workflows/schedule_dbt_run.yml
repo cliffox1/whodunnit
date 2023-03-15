@@ -32,7 +32,7 @@ jobs:
       - name: dbt-action
         uses: mwhitaker/dbt-action@v1.3.0
         with:
-          dbt_command: "dbt run --target main"
+          dbt_command: "dbt run --profiles-dir ./whodunnit/profiles/"
           dbt_project_folder: "./whodunnit/"
         env:
           DBT_ENV_SECRET_USER: ${{ secrets.DBT_ENV_SECRET_USER }}
