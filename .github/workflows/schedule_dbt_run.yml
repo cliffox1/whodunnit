@@ -30,14 +30,14 @@ jobs:
           ref: ''
           fetch-depth: 0
            
-      - name: dbt-action
-        uses: mwhitaker/dbt-action@master
-        with:
-          dbt_command: "dbt run --profiles-dir ./whodunnit/ --target main"
-          dbt_project_folder: "./whodunnit/"
-        env:
-          DBT_POSTGRES_USER: ${{ secrets.DBT_POSTGRES_USER }}
-          DBT_POSTGRES_PASSWORD: ${{ secrets.DBT_POSTGRES_PASSWORD }}
+#       - name: dbt-action
+#         uses: mwhitaker/dbt-action@master
+#         with:
+#           dbt_command: "dbt run --profiles-dir ./whodunnit/ --target main"
+#           dbt_project_folder: "./whodunnit/"
+#         env:
+#           DBT_POSTGRES_USER: ${{ secrets.DBT_POSTGRES_USER }}
+#           DBT_POSTGRES_PASSWORD: ${{ secrets.DBT_POSTGRES_PASSWORD }}
 
 #       - uses: "actions/setup-python@v4"
 #         with:
