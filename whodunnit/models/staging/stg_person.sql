@@ -21,7 +21,7 @@ from source_data
 {{
 config({
     "post-hook": [
-      "{{ index(this, 'person_id')}}",
+      "{{ index(this, 'person_id') }}",
     ],
     })
 }}

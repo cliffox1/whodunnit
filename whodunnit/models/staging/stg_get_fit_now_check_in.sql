@@ -1,11 +1,9 @@
 {{ config(materialized='table') }}
 
 with source_data as (
-
-    select * 
-    , now() as etl_date
+    select * ,
+    now() as etl_date
     from {{ source('public', 'get_fit_now_check_in') }}
-
 ),
 
 source_scrub as (
@@ -24,9 +22,7 @@ source_scrub as (
             when length(cast(check_in_time as text)) = 2
                 then cast(check_in_time as text) || '0'
             else cast(check_in_time as text)
-        end as check_in,
-
--- converting date provided in int64 to date data type.
+        end as check_in, -- converting date provided in int64 to date data type.
         case when length(cast(check_out_time as text)) = 1
             then cast(check_out_time as text) || '00'
             when length(cast(check_out_time as text)) = 2
@@ -42,40 +38,37 @@ source_clean as (
         membership_id,
         check_in_date,
         check_in,
-        check_out
-        ,
-        cast({{ date_parts_a('check_in') }} as integer) as checkin_minutes
-        ,
--- enforing date data on the data (which appear not to be dates but just numbers) 
+        check_out,
+        cast({{ date_parts_mins('check_in') }} as integer) as checkin_minutes, -- enforing time data on the data (which appear not to be timestamps but just numbers) 
         cast(
             case when
                 cast(
-                    {{ date_parts_a('check_in') }} as integer
+                    {{ date_parts_mins('check_in') }} as integer
                 ) 
                 > 59 then
                 cast(cast(
-                    {{ date_parts_b('check_in') }}
+                    {{ date_parts_hrs('check_in') }}
                     as integer
                 ) + 1 as text
                 )
                 else
                     (
-                     {{ date_parts_b('check_in') }}      
+                     {{ date_parts_hrs('check_in') }}      
                     ) end
 
 
             || ':' || case when
                 cast(
-                {{ date_parts_a('check_in') }} as integer
+                {{ date_parts_mins('check_in') }} as integer
                 ) 
                 > 59 then 
                 cast(cast(
-                {{ date_parts_a('check_in') }} as integer) 
+                {{ date_parts_mins('check_in') }} as integer) 
                 - 60 as text
                 )
                 else
                     (
-                      {{ date_parts_a('check_in') }}
+                      {{ date_parts_mins('check_in') }}
                     ) end as time) as checkin_minutes_1,
 
 
@@ -83,30 +76,30 @@ source_clean as (
 
         cast(
             case when
-                cast({{ date_parts_a('check_out') }} as integer
+                cast({{ date_parts_mins('check_out') }} as integer
                 ) > 59 then
                 cast(cast(
-                    {{ date_parts_b('check_out') }}
+                    {{ date_parts_hrs('check_out') }}
                     as integer
                 ) + 1 as text
                 )
                 else
                     (
-                     {{ date_parts_b('check_out') }}
+                     {{ date_parts_hrs('check_out') }}
                     ) end || ':'
 
             || case when
-                cast({{ date_parts_a('check_out') }} as integer
+                cast({{ date_parts_mins('check_out') }} as integer
                 ) > 59 then 
                 cast(cast(
-                    {{ date_parts_a('check_out') }} as integer
+                    {{ date_parts_mins('check_out') }} as integer
                     ) - 60 as text)
                 else
                     (
-                     {{ date_parts_a('check_out') }}
+                     {{ date_parts_mins('check_out') }}
                     ) end as time) as checkout_minutes_1,
 
-        {{ date_parts_a('check_out') }} as checkout_minutes,
+        {{ date_parts_mins('check_out') }} as checkout_minutes,
         etl_date
     from source_scrub
 )
